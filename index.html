@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resep Nusantara</title>
+  <style>
+    /* Basic Reset and Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #FFC8C5;
+      color: #333;
+    }
+    header {
+      background-color: #f0625d;
+      color: white;
+      padding: 14px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      user-select: none;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    nav {
+      display: flex;
+      gap: 25px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+    }
+    nav a:hover,
+    nav a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+    @media(min-width: 600px) {
+      .search-box {
+        margin-top: 0;
+      }
+    main {
+      max-width: 1100px;
+      margin: 30px auto 80px;
+      padding: 0 20px;
+    }
+    h2 {
+      text-align: center;
+      font-weight: 700;
+      font-size: 28px;
+      margin-bottom: 35px;
+      user-select: none;
+    }
+
+    /* Recipe Cards Grid */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      background-color: #eee;
+      user-select: none;
+    }
+    .card h3 {
+      margin: 0 0 8px 0;
+      color: #444;
+      font-size: 20px;
+    }
+    .card p.category {
+      margin: 0 0 15px 0;
+      font-style: italic;
+      color: #666;
+      font-size: 14px;
+    }
+    .btn-detail {
+      background-color: #f0625d;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      width: fit-content;
+      text-align: center;
+    }
+    .btn-detail:hover,
+    .btn-detail:focus {
+      background-color: #d43c36;
+      outline: none;
+    }
+
+    /* Resep Lengkap Hidden Section */
+    .recipe-detail {
+      background: white;
+      margin: 30px 0 0 0;
+      border-radius: 12px;
+      padding: 30px 30px 30px 30px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+      display: none; /* Tersembunyi default */
+      user-select: text;
+    }
+    .recipe-detail.active {
+      display: block;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .recipe-detail h2 {
+      color: #244a6e;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .recipe-detail img {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 30px auto;
+      display: block;
+      border-radius: 15px;
+      box-shadow: 0 3px 10px rgba(36,74,110,0.15);
+      user-select: none;
+    }
+    .recipe-detail h3 {
+      color: #3a5a81;
+      margin-bottom: 10px;
+      font-size: 22px;
+      border-bottom: 1px solid #d6e4ff;
+      padding-bottom: 6px;
+    }
+    .recipe-detail ol {
+      padding-left: 22px;
+      font-size: 16px;
+      margin-top: 0;
+      margin-bottom: 25px;
+      color: #244a6e;
+    }
+    .recipe-detail ol li {
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    /* Tombol Tutup Resep */
+    .close-btn {
+      margin-top: 20px;
+      padding: 8px 20px;
+      background-color: #f0625d;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    .close-btn:hover,
+    .close-btn:focus {
+       background-color: #d43c36;
+       outline: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 620px) {
+      header {
+        flex-direction: column;
+        gap: 8px;
+        padding: 15px 20px;
+      }
+      nav {
+        justify-content: center;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      .search-box {
+        margin-top: 10px;
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<!-- Konttten HTML Anda seperti header, main, section, dll -->
+
+<header>
+  <div class="logo">Resep Nusantara</div>
+</header>
+</body>
+<meta charset="UTF-8" />
+    <title>Resep Nusantara</title>
+    <style>
+        .resep-section { 
+            background-color: #FFC8C5; /* soft pink */
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+        .resep-section h2 {
+            font-weight: bold; 
+            font-size: 24px; 
+            margin-bottom: 12px;
+        }
+        .resep-section p { 
+            font-size: 16px; 
+        }
+    </style>
+</head>
+<body>
+
+    <section class="resep-section">
+        <h2>Selamat Datang di Dunia Kuliner!</h2>
+        <p>Temukan berbagai resep masakan khas Nusantara</p>
+    </section>
+
+
+
+<main>
+  <h2>Kategori Resep</h2>
+
+  <div class="recipe-grid">
+    <!-- Nasi Goreng -->
+    <div class="card">
+      <img src="nasigoreng.webp" alt="Nasi Goreng" />
+      <h3>Nasi Goreng</h3>
+      <p class="category">Kategori: Sarapan</p>
+      <button class="btn-detail" data-target="nasi-goreng-detail">Lihat Resep Lengkap</button>
+    </div>
+
+    <!-- Rendang -->
+    <div class="card">
+      <img src="rendang.jpg" alt="Rendang" />
+      <h3>Rendang Daging</h3>
+      <p class="category">Kategori: Makan Siang</p>
+      <button class="btn-detail" data-target="rendang-detail">Lihat Resep Lengkap</button>
+    </div>
+
+    <!-- Sate Ayam -->
+    <div class="card">
+      <img src="sateayam" alt="Sate Ayam" />
+      <h3>Sate Ayam</h3>
+      <p class="category">Kategori: Makan Malam</p>
+      <button class="btn-detail" data-target="sate-ayam-detail">Lihat Resep Lengkap</button>
+    </div>
+
+    <!-- Soto Ayam -->
+    <div class="card">
+      <img src="sotoayam" alt="Soto Ayam" />
+      <h3>Soto Ayam</h3>
+      <p class="category">Kategori: Makan Siang</p>
+      <button class="btn-detail" data-target="soto-ayam-detail">Lihat Resep Lengkap</button>
+    </div>
+  </div>
+
+  <!-- Bagian Resep Lengkap Tersembunyi -->
+  <section id="nasi-goreng-detail" class="recipe-detail">
+    <h2>Nasi Goreng</h2>
+    <img src="nasgor.jpg" alt="Nasi Goreng"/>
+    <h3>Bahan</h3>
+    <ol>
+      <li>2 piring nasi putih</li>
+      <li>2 butir telur</li>
+      <li>3 siung bawang merah, iris tipis</li>
+      <li>2 siung bawang putih, cincang</li>
+      <li>1 buah cabai merah, iris</li>
+      <li>2 sdm kecap manis</li>
+      <li>Garam dan merica secukupnya</li>
+      <li>Minyak goreng secukupnya</li>
+    </ol>
+    <h3>Alat</h3>
+    <ol>
+      <li>Wajan</li>
+      <li>Spatula</li>
+      <li>Piring saji</li>
+    </ol>
+    <h3>Cara Membuat</h3>
+    <ol>
+      <li>Panaskan minyak di wajan, tumis bawang merah dan bawang putih hingga harum.</li>
+      <li>Masukkan telur, aduk hingga matang.</li>
+      <li>Tambahkan nasi, cabai, kecap manis, garam, dan merica. Aduk rata hingga nasi panas.</li>
+      <li>Angkat dan sajikan di piring.</li>
+    </ol>
+    <button class="close-btn">Tutup Resep</button>
+  </section>
+
+  <section id="rendang-detail" class="recipe-detail">
+    <h2>Rendang</h2>
+    <img src="rendang.jpg" alt="Rendang" />
+    <h3>Bahan</h3>
+    <ol>
+      <li>500g daging sapi, potong dadu</li>
+      <li>2 liter santan kelapa</li>
+      <li>5 lembar daun jeruk</li>
+      <li>3 batang serai, memarkan</li>
+      <li>2 cm lengkuas, memarkan</li>
+      <li>5 siung bawang merah</li>
+      <li>3 siung bawang putih</li>
+      <li>3 buah cabai merah</li>
+      <li>1 sdt ketumbar</li>
+      <li>Garam secukupnya</li>
+    </ol>
+    <h3>Alat</h3>
+    <ol>
+      <li>Panci besar</li>
+      <li>Blender</li>
+      <li>Spatula kayu</li>
+    </ol>
+    <h3>Cara Membuat</h3>
+    <ol>
+      <li>Blender bawang merah, bawang putih, cabai, dan ketumbar hingga halus.</li>
+      <li>Panaskan santan di panci, masukkan bumbu halus, daun jeruk, serai, dan lengkuas. Aduk rata.</li>
+      <li>Masukkan daging sapi, masak dengan api kecil sambil diaduk hingga santan mengering dan daging empuk.</li>
+      <li>Tambahkan garam, masak hingga rendang berwarna coklat dan berminyak.</li>
+      <li>Angkat dan sajikan.</li>
+    </ol>
+    <button class="close-btn">Tutup Resep</button>
+  </section>
+
+  <section id="sate-ayam-detail" class="recipe-detail">
+    <h2>Sate Ayam</h2>
+    <img src="sateayam" alt="Sate Ayam" />
+    <h3>Bahan</h3>
+    <ol>
+      <li>500g daging ayam, potong kecil</li>
+      <li>2 sdm kecap manis</li>
+      <li>1 sdm minyak goreng</li>
+      <li>1 sdt ketumbar bubuk</li>
+      <li>Garam secukupnya</li>
+      <li>Tusuk sate secukupnya</li>
+      <li>Bumbu kacang: 100g kacang tanah, 2 siung bawang putih, 1 buah cabai, air secukupnya</li>
+    </ol>
+    <h3>Alat</h3>
+    <ol>
+      <li>Tusuk sate</li>
+      <li>Grill atau panggangan</li>
+      <li>Blender</li>
+      <li>Mangkuk</li>
+    </ol>
+    <h3>Cara Membuat</h3>
+    <ol>
+      <li>Campur daging ayam dengan kecap, minyak, ketumbar, dan garam. Diamkan 30 menit.</li>
+      <li>Tusuk daging ayam ke tusuk sate.</li>
+      <li>Panggang sate di atas api hingga matang dan kecoklatan.</li>
+      <li>Untuk bumbu kacang: blender kacang tanah, bawang putih, cabai, dan air hingga halus.</li>
+      <li>Sajikan sate dengan bumbu kacang.</li>
+    </ol>
+    <button class="close-btn">Tutup Resep</button>
+  </section>
+  
+ <section id="soto-ayam-detail" class="recipe-detail">
+    <h2>Soto Ayam</h2>
+    <img src="sotoayam" alt="Soto Ayam" />
+	<!-- bahan, alat, cara membuat -->
+    <h3>Bahan</h3>
+    <ol>
+      <li>700g daging ayam</li>
+      <li>1,5 liter air</li>
+      <li>1 batang serai</li>
+      <li>2 lembar daun salam</li>
+      <li>Garam secukupnya</li>
+      <li>Gula secukupnya</li>
+      <li>Minyak untuk menumis</li>
+	  <li>3 siung bawang putih</li>
+      <li>6 siung bawang merah</li>
+      <li>2 butir kemiri</li>
+      <li>1cm kunyit</li>
+      <li>1cm jahe</li>
+      <li>1/2 sdt merica</li>
+	  <li>Bihun yang sudaah direndam</li>
+      <li>Tauge</li>
+      <li>Telur rebus</li>
+      <li>Daun bawang</li>
+      <li>Bawang goreng</li>
+      <li>Gula secukupnya</li>
+      <li>Sambal, kecap manis, jeruk nipis</li>
+    </ol>
+    <h3>Alat</h3>
+    <ol>
+      <li>Panci ukuran sedang</li>
+      <li>Wajan</li>
+      <li>Pisau dan talenan</li>
+      <li>sutil</li>
+	  <li>Mangkuk saji</li>
+    </ol>
+    <h3>Cara Membuat</h3>
+    <ol>
+      <li>Rebus ayam dalam 1,5 liter air sampai empuk.</li>
+	  <li>Angkat ayam, suwir-suwir dagingnya, sisihkan.</li>
+      <li>Saring air rebusan untuk dijadikan kaldu bening.</li>
+      <li>Tumis bumbu halus bersama serai, daun salam, dan daun jeruk sampai harum dan matang.</li>
+      <li>Masukkan tumisan bumbu ke dalam kaldu. Aduk rata.</li>
+      <li>Tambahkan garam dan gula. Koreksi rasa. Masak hingga kuah mendidih dan beraroma sedap.</li>
+      <li>Masukkan ayam suwir ke dalam kuah, aduk sebentar.</li>
+	  <li>Siapkan mangkuk berisi bihun, tauge, ayam suwir, dan telur rebus.</li>
+      <li>Siram dengan kuah soto panas.</li>
+      <li>Taburi daun bawang, seledri, dan bawang goreng.</li>
+	  <li>Sajikan bersama sambal, kecap, dan perasan jeruk nipis.</li>
+    </ol>
+    <button class="close-btn">Tutup Resep</button>
+  </section>
+</main>
+
+<body>
+<head>
+    <meta charset="UTF-8" />
+    <title>Contoh Tentang Kami & Footer</title>
+    <style>
+        .tentang-kami {
+            background-color: #f0f0f0; /* abu-abu terang */
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 14px;
+            color: #333;
+        }
+        .tentang-kami h2 {
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        footer {
+            background-color: #F0625D; /* pink soft */
+            text-align: center;
+            color: #ddd;
+            padding: 15px 20px;
+            font-size: 13px;
+        }
+		
+    </style>
+</head>
+<body>
+
+    <footer>
+        <p>© 2025 Website Resep Makanan. Dibuat dengan cinta.</p>
+    </footer>
+	<style>
+    .marquee-container {
+        background-color: #f0f0f0;
+        overflow: hidden;
+        white-space: nowrap;
+        box-sizing: border-box;
+        padding: 10px 0;
+    }
+    .marquee-content {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee-left 20s linear infinite;
+        font-weight: bold;
+        font-size: 16px;
+        color: #333;
+    }
+    @keyframes marquee-left {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+</style>
+
+<marquee behavior="scroll" direction="left" scrollamount="6" style="background-color:#f0f0f0; padding:10px; font-weight:bold; font-size:16px; color:#333;">
+    Selamat datang di Rasa Nusantara! Temukan resep lezat dari berbagai daerah di Nusantara. &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 
+    Jangan lewatkan resep favorit minggu ini: Sayur Bayam dan Ayam Ketumbar! &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+    Kirimkan resep andalanmu dan bagikan ke pecinta kuliner lainnya! &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+    Ikuti kami di Instagram untuk update resep terbaru! &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+    Masak lebih mudah dan menyenangkan dengan resep lengkap dan langkah yang jelas. &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+    Resep sederhana dan lezat, cocok untuk semua kalangan, dari pemula hingga chef handal. &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+    Promo spesial: Resep-resep praktis untuk sarapan sehat dan makan malam spesial!
+</marquee>
+
+    
+</body>
+</html>
+
+
+<script>
+  // Ambil semua tombol "Lihat Resep Lengkap"
+  const btns = document.querySelectorAll('.btn-detail');
+  const detailSections = document.querySelectorAll('.recipe-detail');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Sembunyikan semua resep detail terlebih dahulu
+      detailSections.forEach(sec => sec.classList.remove('active'));
+      // Ambil target ID dari data-target tombol
+      const targetId = btn.getAttribute('data-target');
+      // Tampilkan resep detail yang sesuai
+      const targetSection = document.getElementById(targetId);
+      if(targetSection) {
+        targetSection.classList.add('active');
+        // Scroll ke resep yang tampil (opsional)
+        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Tombol close resep detail
+  const closeBtns = document.querySelectorAll('.close-btn');
+  closeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('.recipe-detail').classList.remove('active');
+      // Scroll kembali ke atas daftar resep
+      document.querySelector('h2#kategori').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
